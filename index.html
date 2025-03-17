@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typing Practice with Teacher Li</title>
+    <style>
+        body {
+            background-color: #fff8e7; /* Creamy white background */
+            font-family: 'Comic Sans MS', cursive, sans-serif; /* Cute font */
+            text-align: center;
+            padding: 20px;
+        }
+        h1 {
+            color: #ff6f61; /* Cute pink color */
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        textarea {
+            width: 600px; /* 10x6.39 ratio */
+            height: 383.4px; /* 10x6.39 ratio */
+            font-size: 1.2em;
+            padding: 10px;
+            border: 2px solid #ff6f61;
+            border-radius: 10px;
+            resize: none; /* Disable resizing */
+            margin-bottom: 20px;
+        }
+        textarea::placeholder {
+            color: #ccc;
+        }
+        button {
+            background-color: #ff6f61; /* Cute pink color */
+            color: white;
+            font-size: 1.2em;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #ff4a3d; /* Darker pink */
+        }
+        #output {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #333;
+        }
+        #time {
+            font-weight: bold;
+            color: #ff6f61;
+        }
+        #instruction {
+            margin-top: 20px;
+            font-size: 1.1em;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <h1>Typing Practice with Teacher Li</h1>
+    <textarea id="typingArea" placeholder="Type your article here..." onpaste="return false;" oncopy="return false;" oncut="return false;"></textarea>
+    <br>
+    <button onclick="confirmInput()">Confirm</button>
+    <div id="output"></div>
+    <div id="instruction"></div>
+
+    <script>
+        let startTime;
+
+        // Record start time
+        document.getElementById('typingArea').addEventListener('focus', function() {
+            if (!startTime) {
+                startTime = new Date();
+            }
+        });
+
+        function confirmInput() {
+            const typingArea = document.getElementById('typingArea');
+            const output = document.getElementById('output');
+            const instruction = document.getElementById('instruction');
+
+            // Get input content
+            const inputText = typingArea.value;
+
+            // Calculate time taken
+            const endTime = new Date();
+            const timeDiff = (endTime - startTime) / 1000; // Convert to seconds
+            const minutes = Math.floor(timeDiff / 60);
+            const seconds = Math.floor(timeDiff % 60);
+
+            // Display input content and time taken
+            output.innerHTML = `<strong>Your typed article:</strong><br>${inputText}<br><br><strong>Time taken:</strong> <span id="time">${minutes} minutes ${seconds} seconds</span>`;
+            instruction.innerHTML = "Please take a screenshot and attach the picture to the assignment in Teacher Li's Google Classroom.";
+
+            // Clear input area
+            typingArea.value = '';
+            startTime = null; // Reset start time
+        }
+    </script>
+</body>
+</html>
